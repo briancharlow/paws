@@ -9,7 +9,16 @@ module.exports = {
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        'light-lavender': '#f4e7fb',
+        'light-coral': '#f2dddc',
+        'salmon-pink': '#f6bcba',
+        'lavender-blush': '#e3aadd',
+        'light-purple': '#cba8e9',
+        'light-blue': '#c3c7f4',
+      },
+    },
   },
   plugins: [],
 }
