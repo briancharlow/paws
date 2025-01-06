@@ -2,15 +2,22 @@
 "use client";
 import Link from 'next/link';
 import React, { useState } from 'react';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+
+// Validation schema for login
+const validationSchema = Yup.object().shape({
+  email: Yup.string().email('Invalid email address').required('Email is required'),
+  password: Yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
+});
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-    // Implement your login logic here
-    console.log('Logging in with:', { email, password });
+  const handleLogin = (values) => {
+    console.log(values);
+    // Implement login logic here
   };
 
   return (
@@ -23,41 +30,45 @@ const LoginPage = () => {
       </div>
       <div className="bg-white rounded-lg shadow-lg p-8 max-w-md w-full">
         <h2 className="text-2xl font-bold text-center text-light-purple mb-6">Log In</h2>
-        <form onSubmit={handleLogin}>
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700" htmlFor="email">Email</label>
-            <input
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              className="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring focus:ring-light-purple"
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700" htmlFor="password">Password</label>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              className="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring focus:ring-light-purple"
-            />
-          </div>
-          <button
-            type="submit"
-            className="w-full bg-light-purple hover:bg-light-coral text-white font-bold py-2 px-4 rounded transition duration-200"
-          >
-            Log In
-          </button>
-        </form>
+        <Formik
+          initialValues={{ email: '', password: '' }}
+          validationSchema={validationSchema}
+          onSubmit={handleLogin}
+        >
+          {() => (
+            <Form>
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-gray-700" htmlFor="email">Email</label>
+                <Field
+                  type="email"
+                  id="email"
+                  name="email"
+                  className="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring focus:ring-light-purple"
+                />
+                <ErrorMessage name="email" component="div" className="text-red-600 text-sm" />
+              </div>
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-gray-700" htmlFor="password">Password</label>
+                <Field
+                  type="password"
+                  id="password"
+                  name="password"
+                  className="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring focus:ring-light-purple"
+                />
+                <ErrorMessage name="password" component="div" className="text-red-600 text-sm" />
+              </div>
+              <button
+                type="submit"
+                className="w-full bg-light-purple hover:bg-light-coral text-white font-bold py-2 px-4 rounded transition duration-200"
+              >
+                Log In
+              </button>
+            </Form>
+          )}
+        </Formik>
         <p className="mt-4 text-center text-sm text-gray-600">
           Don't have an account?{' '}
-          <Link href="/signup">
-            <a className="text-light-purple hover:text-light-coral">Sign Up</a>
-          </Link>
+              <Link href="/signup" className="text-light-purple hover:text-light-coral">Sign Up</Link>
         </p>
       </div>
     </div>
