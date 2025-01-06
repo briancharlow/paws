@@ -17,7 +17,7 @@ app.use(express.json()); // Middleware to parse JSON requests
 
 // Sample route for testing
 app.get('/', (req, res) => {
-    res.send('Welcome to Pet Connect Backend!');
+    res.send('Welcome to Paws Backend!');
 });
 
 // Start the server
