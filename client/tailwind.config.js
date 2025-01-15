@@ -12,10 +12,11 @@ module.exports = {
     extend: {
       colors: {
         'light-lavender': '#f4e7fb',
-        'light-coral': '#f2dddc',
+        'light-coral': '#662249',
+        'reddish': '#B4182d',
         'salmon-pink': '#f6bcba',
         'lavender-blush': '#e3aadd',
-        'light-purple': '#cba8e9',
+        'light-purple': '#44174E',
         'light-blue': '#c3c7f4',
       },
     },
